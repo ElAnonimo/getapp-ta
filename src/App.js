@@ -6,11 +6,9 @@ import './App.scss';
 
 const App = () => {
   return (
-    <div className='app'>
-      <Provider store={store}>
-        <Header />
-      </Provider>
-    </div>
+    <Provider store={store}>
+      <Header />
+    </Provider>
   );
 };
 
