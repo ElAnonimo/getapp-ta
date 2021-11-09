@@ -1,0 +1,55 @@
+.form-title {
+  margin-bottom: 10px;
+}
+
+.form-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.label-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.label-title {
+  width: 15%;
+  &--group {
+    margin-bottom: 10px;
+  }
+}
+
+.fields-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-description {
+  width: 100%;
+  padding: 10px;
+}
+
+.expires-in {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &__duration {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+.error-message {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-start;
+}
