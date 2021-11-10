@@ -37,7 +37,7 @@ const TaskItem = ({ task }) => {
         {(task.taskHours || task.taskMins) && (
           <div className='task-prop'>
             <p className='task-prop--label'>Expires In</p>
-            <p className='task-prop--value'>{task.taskHours} hr. {task.taskMins} min.</p>
+            <p className='task-prop--value'>{task.taskHours && `${task.taskHours} hr. `}{task.taskMins && `${task.taskMins} min.`}</p>
           </div>
         )}
       </div>

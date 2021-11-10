@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+import Alert from './Alert/Alert';
 import Modal from './Modal/Modal';
 import TaskForm from './common/TaskForm';
 import TaskList from './Tasks/TaskList';
@@ -25,6 +26,7 @@ const Header = () => {
 
   return (
     <div className='app-wrapper'>
+      <Alert />
       <div className='navbar'>
         <h1>
           <p><FontAwesomeIcon icon={faCode} /> GetApp</p>

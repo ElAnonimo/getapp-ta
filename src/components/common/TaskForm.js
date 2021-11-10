@@ -23,11 +23,16 @@ const TaskForm = ({
     taskHours: '',
     taskMins: ''
   });
+  const [taskEdited, setTaskEdited] = useState(null);
 
   useEffect(() => {
     if (taskEditing) {
-      const taskEdited = tasks.find(task => task.id === taskEditedId);
+      setTaskEdited(tasks.find(task => task.id === taskEditedId));
+    }
+  }, [taskEditing, taskEditedId, tasks]);
 
+  useEffect(() => {
+    if (taskEdited) {
       setFormValues({
         text: taskEdited.text || '',
         done: taskEdited.done || false,
@@ -35,7 +40,7 @@ const TaskForm = ({
         taskMins: taskEdited.taskMins || ''
       });
     }
-  }, [tasks, taskEditing, taskEditedId]);
+  }, [taskEdited]);
 
   const taskTextExists = text => {
     // will also prevent submit if the after and before edit form text is the same
@@ -62,7 +67,7 @@ const TaskForm = ({
           taskHours: string()
             .test('taskHours', 'a 2-digit max integer value', value => {
               const number = parseInt(value, 10);
-              return !number || (number > -1 && number < 100);
+              return !number || (number > 0 && number < 100);
             }),
           taskMins: string()
             .test('taskMins', 'please select from 1 to 59', value => {
@@ -71,8 +76,11 @@ const TaskForm = ({
             })
         })}
         onSubmit={(values, actions) => {
+          console.log('Form submit clicked');
           dispatch(createTask({
             id: taskEditing ? taskEditedId : uuidv4(),
+            createdAt: taskEditing ? taskEdited.createdAt : Date.now(),
+            // expiresAt: taskEditing ? taskEdited.expiresAt : Date.now() + (values.taskHours * 60 * 60 * 1000 || 0) + (values.taskMins * 60 * 1000 || 0),
             ...values
           }));
 
@@ -116,8 +124,9 @@ const TaskForm = ({
                   <Field
                     className='expires-in__duration'
                     type='text'
-                    onChange={evt => setFieldValue('taskHours', evt.target.value.replace(/\D/g, ''))}
+                    onChange={evt => setFieldValue('taskHours', evt.target.value.replace(/[\D|0]/g, ''))}
                     name='taskHours'
+                    placeholder='H or HH. No leading zero'
                   />
                   {errors.taskHours && touched.taskHours && <div className='error-message'>{errors.taskHours}</div>}
                 </div>
@@ -128,8 +137,9 @@ const TaskForm = ({
                   <Field
                     className='expires-in__duration'
                     type='text'
-                    onChange={evt => setFieldValue('taskMins', evt.target.value.replace(/\D/g, ''))}
+                    onChange={evt => setFieldValue('taskMins', evt.target.value.replace(/[\D|0]/g, ''))}
                     name='taskMins'
+                    placeholder='M or MM. No leading zero'
                   />
                   {errors.taskMins && touched.taskMins && <div className='error-message'>{errors.taskMins}</div>}
                 </div>

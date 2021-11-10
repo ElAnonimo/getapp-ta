@@ -1,5 +1,4 @@
-import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
-import { createTask, deleteTask, editTask } from '../actions/tasks';
+import { all, fork, put, takeLatest } from 'redux-saga/effects';
 import {
   ADD_TASK,
   ADD_TASK_SUCCESS,
@@ -11,20 +10,20 @@ import {
 
 // worker saga
 function* addTaskSaga(action) {
+  console.log('addTaskSaga ran');
   try {
-    const res = yield call(createTask, action.data);
     const newTasks = [];
     const existingTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
     if (existingTasks.length === 0) {
-      newTasks.push(res.data);
+      newTasks.push(action.data);
     } else {
-      existingTasks.map((task, index, arr) => task.id === res.data.id
-        ? newTasks.push(res.data)
+      existingTasks.map(task => task.id === action.data.id
+        ? newTasks.push(action.data)
         : newTasks.push(task)
       );
-      if (!newTasks.includes(res.data)) {
-        newTasks.push(res.data);
+      if (!newTasks.includes(action.data)) {
+        newTasks.push(action.data);
       }
     }
 
@@ -37,10 +36,9 @@ function* addTaskSaga(action) {
 
 function* deleteTaskSaga(action) {
   try {
-    const res = yield call(deleteTask, action.id);
-    const tasks = JSON.parse(localStorage.getItem('tasks')).filter(task => task.id !== res.id);
+    const tasks = JSON.parse(localStorage.getItem('tasks')).filter(task => task.id !== action.id);
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    yield put({ type: DELETE_TASK_SUCCESS, data: res.id });
+    yield put({ type: DELETE_TASK_SUCCESS, data: action.id });
   } catch(ex) {
     console.log(`sagas/tasks.js. Error deleting task ID ${action.id}:`, ex.message);
   }
@@ -48,8 +46,7 @@ function* deleteTaskSaga(action) {
 
 function* editTaskSaga(action) {
   try {
-    const res = yield call(editTask, action.id);
-    yield put({ type: EDIT_TASK_SUCCESS, data: res.id });
+    yield put({ type: EDIT_TASK_SUCCESS, data: action.id });
   } catch(ex) {
     console.log(`sagas/tasks.js. Error editing task ID ${action.data.id}:`, ex.message);
   }

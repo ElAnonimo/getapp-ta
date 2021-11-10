@@ -7,6 +7,7 @@ import {
 
 // create a task
 export const createTask = data => {
+  console.log('createTask ran');
   return {
     type: ADD_TASK,
     data
@@ -15,6 +16,7 @@ export const createTask = data => {
 
 // delete task
 export const deleteTask = id => {
+  console.log('deleteTask ran');
   return {
     type: DELETE_TASK,
     id
@@ -24,6 +26,7 @@ export const deleteTask = id => {
 
 // edit task
 export const editTask = id => {
+  console.log('editTask ran');
   return {
     type: EDIT_TASK,
     id
