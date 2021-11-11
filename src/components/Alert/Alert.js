@@ -13,7 +13,7 @@ const Alert = () => {
   useEffect(() => {
     tasks.length > 0 && tasks.map(task => {
       const taskExpiresAt = task.createdAt + task.taskHours * 60 * 60 * 1000 + task.taskMins * 60 * 1000;
-      return taskExpiresAt > Date.now() ? setAlertList(alerts => [...alerts, { ...task, taskExpiresAt: taskExpiresAt / 20 }]) : null;
+      return taskExpiresAt > Date.now() ? setAlertList(alerts => [...alerts, { ...task, taskExpiresAt }]) : null;
     });
   }, [tasks]);
 
