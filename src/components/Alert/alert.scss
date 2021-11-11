@@ -1,0 +1,12 @@
+.alert-wrapper {
+  width: 50%;
+  margin: 5rem auto 0;
+  text-align: center;
+}
+
+.remove-alert {
+  &--icon {
+    margin-left: var(--gap-main);
+    cursor: pointer;
+  }
+}

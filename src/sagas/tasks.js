@@ -10,7 +10,6 @@ import {
 
 // worker saga
 function* addTaskSaga(action) {
-  console.log('addTaskSaga ran');
   try {
     const newTasks = [];
     const existingTasks = JSON.parse(localStorage.getItem('tasks') || '[]');

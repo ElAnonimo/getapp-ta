@@ -10,7 +10,7 @@ const TaskList = () => {
       {!loading && tasks?.length > 0 ? tasks.map(task =>
         <TaskItem key={task.id} task={task} />
       ) : (
-        <p className='no-tasks'>No tasks yet or loading</p>
+        <p className='text-center'>No tasks yet or loading</p>
       )}
     </div>
   )

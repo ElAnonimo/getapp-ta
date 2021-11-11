@@ -43,8 +43,16 @@ const TaskItem = ({ task }) => {
       </div>
       <div className='task-item--controls'>
         <div className='task-item--controls-box'>
-          <FontAwesomeIcon className='task-item--controls-icon__mr' onClick={() => onEdit(task.id)} icon={faEdit} />
-          <FontAwesomeIcon onClick={() => onDelete(task.id)} icon={faTimes} />
+          <FontAwesomeIcon
+            className='task-item--controls-icon task-item--controls-icon__mr'
+            onClick={() => onEdit(task.id)}
+            icon={faEdit}
+          />
+          <FontAwesomeIcon
+            className='task-item--controls-icon'
+            onClick={() => onDelete(task.id)}
+            icon={faTimes}
+          />
         </div>
       </div>
     </div>

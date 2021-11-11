@@ -76,11 +76,9 @@ const TaskForm = ({
             })
         })}
         onSubmit={(values, actions) => {
-          console.log('Form submit clicked');
           dispatch(createTask({
             id: taskEditing ? taskEditedId : uuidv4(),
             createdAt: taskEditing ? taskEdited.createdAt : Date.now(),
-            // expiresAt: taskEditing ? taskEdited.expiresAt : Date.now() + (values.taskHours * 60 * 60 * 1000 || 0) + (values.taskMins * 60 * 1000 || 0),
             ...values
           }));
 
@@ -124,7 +122,7 @@ const TaskForm = ({
                   <Field
                     className='expires-in__duration'
                     type='text'
-                    onChange={evt => setFieldValue('taskHours', evt.target.value.replace(/[\D|0]/g, ''))}
+                    onChange={evt => setFieldValue('taskHours', evt.target.value.replace(/\D|^0+/g, ''))}
                     name='taskHours'
                     placeholder='H or HH. No leading zero'
                   />
@@ -137,7 +135,7 @@ const TaskForm = ({
                   <Field
                     className='expires-in__duration'
                     type='text'
-                    onChange={evt => setFieldValue('taskMins', evt.target.value.replace(/[\D|0]/g, ''))}
+                    onChange={evt => setFieldValue('taskMins', evt.target.value.replace(/\D|^0+/g, ''))}
                     name='taskMins'
                     placeholder='M or MM. No leading zero'
                   />
